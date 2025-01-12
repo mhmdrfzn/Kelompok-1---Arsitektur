@@ -2,7 +2,9 @@
 
 // Camera position
 float cameraX = 6.0f, cameraY = 4.0f, cameraZ = 10.0f;
-
+float translateX = 0.0f, translateY = 0.0f, translateZ = 0.0f;
+float scaleX = 1.0f, scaleY = 1.0f, scaleZ = 1.0f;
+float rotateAngle = 0.0f;
 // Boundaries of the room
 float roomMinX = -5.0f, roomMaxX = 5.0f;
 float roomMinY = -1.0f, roomMaxY = 3.0f;
@@ -11,6 +13,8 @@ float roomMinZ = -5.0f, roomMaxZ = 5.0f;
 bool isLampOn = true; // Lampu awalnya menyala
 GLfloat lightPosition[] = {0.0f, 2.5f, 0.0f, 1.0f}; // Posisi lampu
 
+/*----------------------------------------------------------Risyad-----------------------------------------------------------------
+*/
 void init() {
     glClearColor(0.8f, 0.9f, 1.0f, 1.0f); // Background color (light blue)
     glEnable(GL_DEPTH_TEST);
@@ -29,6 +33,27 @@ void init() {
     glLightfv(GL_LIGHT0, GL_SPECULAR, lightSpecular);
 }
 
+/*------------------------------------------------------------- Risyad-------------------------------------------------------------------------
+*/
+void drawCartecius()
+{
+	glLineWidth(1.0);
+	glColor3f(1.0f, 1.0f, 1.0f);
+	glBegin(GL_LINES);
+	
+	glVertex3f(-50.0, 0.0, 0.0);
+	glVertex3f(50.0, 0.0, 0.0);
+	
+	glVertex3f(0.0, -50.0, 0.0);
+	glVertex3f(0.0, 50.0, 0.0);
+	
+	glVertex3f(0.0, 0.0, -50.0);
+	glVertex3f(0.0, 0.0, 50.0);
+	glEnd();
+}
+
+/*-------------------------------------------------------------Risyad-------------------------------------------------------------------------
+*/
 void drawWall(float width, float height, float r, float g, float b) {
 	
     glColor3f(r, g, b);
@@ -39,7 +64,9 @@ void drawWall(float width, float height, float r, float g, float b) {
     
 }
 
-void drawFloorOrCeiling(float width, float depth, float r, float g, float b) {
+/*-------------------------------------------------------------Risyad-------------------------------------------------------------------------
+*/
+void drawLantai(float width, float depth, float r, float g, float b) {
 	
     glColor3f(r, g, b);
     glPushMatrix();
@@ -49,6 +76,8 @@ void drawFloorOrCeiling(float width, float depth, float r, float g, float b) {
     
 }
 
+/*-------------------------------------------------------------Risyad-------------------------------------------------------------------------
+*/
 void drawWindow(float width, float height, float r, float g, float b) {
 	
     glColor3f(r, g, b);
@@ -59,6 +88,8 @@ void drawWindow(float width, float height, float r, float g, float b) {
     
 }
 
+/*-------------------------------------------------------------Rafli-------------------------------------------------------------------------
+*/
 void drawTable() {
     // Draw the tabletop
     
@@ -90,6 +121,8 @@ void drawTable() {
     
 }
 
+/*------------------------------------------------------------- Risyad-------------------------------------------------------------------------
+*/
 void drawMeja() {
     
     glColor3f(0.5f, 0.2f, 0.1f); // Warna kayu
@@ -149,8 +182,8 @@ void drawMeja() {
     glPopMatrix(); 
 }
 
-
-
+/*-------------------------------------------------------------Rafli-------------------------------------------------------------------------
+*/
 void drawLamp() {
     // Draw the lamp
     glColor3f(1.0f, 1.0f, 0.8f); // Light yellow for the bulb
@@ -168,6 +201,8 @@ void drawLamp() {
 
 }
 
+/*-------------------------------------------------------------Rafli-------------------------------------------------------------------------
+*/
 void drawCabinet() {
     // Draw the main body of the cabinet
     glColor3f(0.6f, 0.3f, 0.1f); // Brown color
@@ -187,6 +222,9 @@ void drawCabinet() {
         glPopMatrix();
     }
 }
+
+/*-------------------------------------------------------------Risyad-------------------------------------------------------------------------
+*/
 void drawSofa(){
 	
 	glColor3f(0.25f, 0.25f, 0.25f); 
@@ -235,6 +273,8 @@ void drawSofa(){
     glPopMatrix();
 }
 
+/*-------------------------------------------------------------Alya-------------------------------------------------------------------------
+*/
 void drawChair(float x, float y, float z, float rotation) {
     glPushMatrix();
     glTranslatef(x, y, z);
@@ -275,6 +315,8 @@ for (int i = 0; i < 4; i++) {
     glPopMatrix();
 }
 
+/*-------------------------------------------------------------Alya-------------------------------------------------------------------------
+*/
 void drawFlowerPot(float x, float y, float z) {
     // Draw the pot
     glColor3f(0.2f, 0.3f, 0.3f); // Brown color for the pot
@@ -311,6 +353,8 @@ void drawFlowerPot(float x, float y, float z) {
     glPopMatrix();
 }
 
+/*-------------------------------------------------------------Alya-------------------------------------------------------------------------
+*/
 void drawFlowerPot2(float x, float y, float z) {
     // Draw the pot
     glColor3f(0.2f, 0.3f, 0.3f); 
@@ -347,6 +391,8 @@ void drawFlowerPot2(float x, float y, float z) {
     glPopMatrix();
 }
 
+/*-------------------------------------------------------------Alya-------------------------------------------------------------------------
+*/
 void drawFlowerPot3(float x, float y, float z) {
     // Draw the pot
     glColor3f(0.1f, 0.2f, 0.1f); 
@@ -383,7 +429,10 @@ void drawFlowerPot3(float x, float y, float z) {
     glPopMatrix();
 }
 
-void drawPainting(float x, float y, float z, float width, float height, float* frameColor, float* paintingColor) {
+/*-------------------------------------------------------------Alya-------------------------------------------------------------------------
+*/
+void drawTv(float x, float y, float z, float width, float height, float* frameColor) 
+{
     // Menggambar bingkai lukisan
     glColor3f(frameColor[0], frameColor[1], frameColor[2]);
     glPushMatrix();
@@ -392,15 +441,11 @@ void drawPainting(float x, float y, float z, float width, float height, float* f
     glutSolidCube(1.0);
     glPopMatrix();
 
-    // Menggambar isi lukisan di dalam bingkai
-    glColor3f(paintingColor[0], paintingColor[1], paintingColor[2]);
-    glPushMatrix();
-    glTranslatef(x, y, z);
-    glScalef(0.02f, height - 0.1f, width - 0.1f);  // Menyesuaikan ukuran lukisan agar pas dalam bingkai
-    glutSolidCube(1.0);
-    glPopMatrix();
+    
 }
 
+/*-------------------------------------------------------------Alya-------------------------------------------------------------------------
+*/
 void drawCarpet(float x, float y, float z, float width, float depth) {
     glColor3f(0.8f, 0.6f, 0.4f); // Beige carpet
     glPushMatrix();
@@ -410,17 +455,19 @@ void drawCarpet(float x, float y, float z, float width, float depth) {
     glPopMatrix();
 }
 
+/*-------------------------------------------------------------Risyad-------------------------------------------------------------------------
+*/
 void drawRoom() {
     // Floor
     glPushMatrix();
     glTranslatef(0.0f, -1.0f, 0.0f);
-    drawFloorOrCeiling(10.0f, 10.0f, 0.7f, 0.7f, 0.7f); // Gray floor
+    drawLantai(10.0f, 10.0f, 0.7f, 0.7f, 0.7f); // Gray floor
     glPopMatrix();
 
     // Ceiling
     glPushMatrix();
     glTranslatef(0.0f, 3.0f, 0.0f);
-    drawFloorOrCeiling(10.0f, 10.0f, 1.0f, 1.0f, 1.0f); // White ceiling
+    drawLantai(10.0f, 10.0f, 1.0f, 1.0f, 1.0f); // White ceiling
     glPopMatrix();
 
     // Back Wall
@@ -533,6 +580,8 @@ void drawRoom() {
     glPopMatrix();
 }
 
+/*-------------------------------------------------------------Risyad-------------------------------------------------------------------------
+*/
 void drawScene() {
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
@@ -545,11 +594,12 @@ void drawScene() {
 
     // Camera position
     gluLookAt(cameraX, cameraY, cameraZ, 0.0f, 0.0f, 0.0f, 0.0f, 1.0f, 0.0f);
-
-    // Draw the room
+	
+	glTranslatef(translateX, translateY, translateZ);
+    glScalef(scaleX, scaleY, scaleZ);
+    glRotatef(rotateAngle, 0.0f, 1.0f, 0.0f);
     drawRoom();
-
-    // Draw the table
+	drawCartecius();
     drawTable();
     drawSofa();
     drawMeja();
@@ -568,13 +618,13 @@ void drawScene() {
 	drawCarpet(0.2f, -1.0f, 0.2f, 3.0f, 2.0f);
 	
 	float frameColor[3] = {0.1f, 0.1f, 0.1f};
-    float paintingColor[3] = {1.0f, 0.8f, 0.6f}; 
-    drawPainting(4.5f, 1.0f, 0.0f, -1.8f, 1.5f, frameColor, paintingColor);
+    drawTv(4.5f, 1.0f, 0.0f, -1.8f, 1.5f, frameColor);
 
     glutSwapBuffers();
 }
 
-// Handle keyboard input
+/*-------------------------------------------------------------Rafli-------------------------------------------------------------------------
+*/
 void handleKeypress(unsigned char key, int x, int y) {
     switch (key) {
         case 'w': // Move forward (into the room)
@@ -595,6 +645,51 @@ void handleKeypress(unsigned char key, int x, int y) {
         case 'e': // Move down
             cameraY -= 0.5f;
             break;
+        case'b':
+        	cameraX = 6.0f;
+            cameraY = 4.0f;
+            cameraZ = 10.0f;
+            translateY = 0.0f;
+            translateX = 0.0f;
+            translateZ = 0.0f;
+            rotateAngle = 0.0f;
+            break;
+        
+            //translasi
+        case 't': 
+			translateY += 0.1f;
+		 	break; // Geser ke atas
+        case 'y':
+			translateY -= 0.1f;
+			break; // Geser ke bawah
+        case 'u': 
+			translateX -= 0.1f; 
+			break; // Geser ke kiri
+        case 'i': 
+			translateX += 0.1f; 
+			break; // Geser ke kanan
+        case 'o': 
+			translateZ -= 0.1f; 
+			break; // Geser ke depan
+        case 'p': 
+			translateZ += 0.1f; 
+			break; // Geser ke belakang
+        
+        // Skalasi
+        case '+': 
+			scaleX += 0.1f; scaleY += 0.1f; scaleZ += 0.1f; 
+			break; // Perbesar
+        case '-': 
+			scaleX -= 0.1f; scaleY -= 0.1f; scaleZ -= 0.1f; 
+			break; // Perkecil
+        
+        // Rotasi
+        case 'r': 
+			rotateAngle += 5.0f; 
+			break; // Putar searah jarum jam
+        case 'R': 
+			rotateAngle -= 5.0f; 
+			break; // Putar berlawanan jarum jam
         case 'l': // Toggle lamp on/off
             isLampOn = !isLampOn;
             if (isLampOn) {
@@ -618,6 +713,8 @@ void handleKeypress(unsigned char key, int x, int y) {
     glutPostRedisplay(); // Redraw the scene with updated camera position
 }
 
+/*-------------------------------------------------------------Rafli-------------------------------------------------------------------------
+*/
 int main(int argc, char** argv) {
     glutInit(&argc, argv);
     glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGB | GLUT_DEPTH);
