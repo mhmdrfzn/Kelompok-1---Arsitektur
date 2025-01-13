@@ -10,8 +10,10 @@ float roomMinX = -5.0f, roomMaxX = 5.0f;
 float roomMinY = -1.0f, roomMaxY = 3.0f;
 float roomMinZ = -5.0f, roomMaxZ = 5.0f;
 
-bool isLampOn = true; // Lampu awalnya menyala
+bool isLampOn = false;
+bool isCarteciusVisible = true;
 GLfloat lightPosition[] = {0.0f, 2.5f, 0.0f, 1.0f}; // Posisi lampu
+
 
 /*----------------------------------------------------------Risyad-----------------------------------------------------------------
 */
@@ -35,21 +37,25 @@ void init() {
 
 /*------------------------------------------------------------- Risyad-------------------------------------------------------------------------
 */
-void drawCartecius()
-{
-	glLineWidth(1.0);
-	glColor3f(1.0f, 1.0f, 1.0f);
-	glBegin(GL_LINES);
-	
-	glVertex3f(-50.0, 0.0, 0.0);
-	glVertex3f(50.0, 0.0, 0.0);
-	
-	glVertex3f(0.0, -50.0, 0.0);
-	glVertex3f(0.0, 50.0, 0.0);
-	
-	glVertex3f(0.0, 0.0, -50.0);
-	glVertex3f(0.0, 0.0, 50.0);
-	glEnd();
+void drawCartecius() {
+    if (!isCarteciusVisible) return; // Hanya gambar jika diaktifkan
+
+    glLineWidth(1.0);
+    glColor3f(1.0f, 1.0f, 1.0f);
+    glBegin(GL_LINES);
+
+    // Sumbu X
+    glVertex3f(-50.0, 0.0, 0.0);
+    glVertex3f(50.0, 0.0, 0.0);
+
+    // Sumbu Y
+    glVertex3f(0.0, -50.0, 0.0);
+    glVertex3f(0.0, 50.0, 0.0);
+
+    // Sumbu Z
+    glVertex3f(0.0, 0.0, -50.0);
+    glVertex3f(0.0, 0.0, 50.0);
+    glEnd();
 }
 
 /*-------------------------------------------------------------Risyad-------------------------------------------------------------------------
@@ -697,6 +703,9 @@ void handleKeypress(unsigned char key, int x, int y) {
             } else {
                 glDisable(GL_LIGHT0); // Turn off the light
             }
+            break;
+        case 'c':
+            isCarteciusVisible = !isCarteciusVisible;
             break;
         case 'x':  // Escape key to exit
             exit(0);
